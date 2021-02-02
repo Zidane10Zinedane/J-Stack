@@ -1,0 +1,163 @@
+﻿@model J_Stack.Models.Course
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title></title>
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/css/select2.min.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!-- Header----------------------------------------------------------------------->
+    <div class="header">
+        <div class="header-left">
+            <a href="@Url.Action("Index", "Home")" class="logo">
+                <span>Demo</span>
+            </a>
+        </div>
+        <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+        <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+    </div>
+    <!-------------------------------------------------------------------------------->
+    <!--Sidebar------------------------------------------------------------------------>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="menu-title">Main</li>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                    </li>
+                    <li class="submenu">
+                        <a href="@Url.Action("Create", "Degrees")"><i class="fa fa-graduation-cap"></i> <span> Add Degree </span> </a>
+
+                    </li>
+                    <li class="submenu">
+                        <a href="@Url.Action("Index", "Degrees")"><i class="far fa-clipboard"></i> <span> List Degree </span> </a>
+
+                    </li>
+                    <li class="submenu">
+                        <a href="@Url.Action("Create", "Courses")"><i class="fa fa-graduation-cap"></i> <span> Add Course </span> </a>
+
+                    </li>
+                    <li class="submenu">
+                        <a href="@Url.Action("Index", "Courses")"><i class="far fa-clipboard"></i> <span> List Course </span> </a>
+
+                    </li>
+                    <li class="submenu">
+                        <a href="@Url.Action("Create", "Lectures")"><i class="fa fa-user"></i> <span> Add Lecture </span> </a>
+
+                    </li>
+                    <li class="submenu">
+                        <a href="@Url.Action("Index", "Lectures")"><i class="far fa-clipboard"></i> <span> List Lecture </span> </a>
+
+                    </li>
+                    <li class="submenu">
+                        <a href="@Url.Action("Create", "Students")"><i class="fa fa-user"></i> <span> Add Student </span> </a>
+
+                    </li>
+                    <li class="submenu">
+                        <a href="@Url.Action("Index", "Students")"><i class="far fa-clipboard"></i> <span> List Student </span> </a>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!---------------------------------------------------------------------------------->
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+        <div class="page-wrapper">
+            <!--Body page---------------------------------------------------------------------->
+
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <h4 class="page-title">Add Course</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <form>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Course Name <span class="text-danger">*</span></label>
+                                        @Html.EditorFor(model => model.CourseName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CourseName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Duration Months <span class="text-danger">*</span></label>
+                                        @Html.EditorFor(model => model.DurationMonths, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DurationMonths, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Degree <span class="text-danger">*</span></label>
+                                        @Html.DropDownList("D_Id", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.D_Id, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-primary submit-btn">Create Course</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!---------------------------------------------------------------------------------->
+        </div>
+    }
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/select2.min.js"></script>
+    <script src="assets/js/jquery.dataTables.min.js"></script>
+    <script src="assets/js/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="assets/js/app.js"></script>
+
+</body>
+</html>
+
